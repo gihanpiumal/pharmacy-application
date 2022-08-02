@@ -4,7 +4,24 @@ const mongoose = require("mongoose");
 const Categories = require("../models/category");
 const router = express.Router();
 
-// add user
+
+// get all category
+router.get("/api/category/get-all", (req, res) => {
+    Categories.find().exec((err, category) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        allCategory: {category},
+      });
+    });
+  });
+
+
+// add category
 router.post("/api/category/add", (req, res) => {
   let newCategories = Categories(req.body);
 
@@ -19,5 +36,40 @@ router.post("/api/category/add", (req, res) => {
     });
   });
 });
+
+
+  
+// delete category
+router.delete("/api/category/delete/:id", (req, res) => {
+    Categories.findByIdAndRemove(req.params.id).exec((err, deleteCategory) => {
+      if (err) {
+        return res.status(400).json({ message: "Not deleted", err });
+      }
+      return res.json({
+        message: "Delete Successfully",
+        deleteCategory,
+      });
+    });
+  });
+
+
+  // update user
+  router.put("/api/category/update/:id", (req, res) => {
+    Categories.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      (err, updateCategory) => {
+        if (err) {
+          return res.status(400).json({ error: err });
+        }
+        return res.status(200).json({
+          success: "Updated Successfully",
+        });
+      }
+    );
+  });
+  
 
 module.exports = router;
