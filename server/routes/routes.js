@@ -1,77 +1,56 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
-const {getCategories} = require("./Categories");
-const Categories = require("../models/category");
 const router = express.Router();
 
+const medicinesAPI = require("../routes/medicines");
+const categoryAPI = require("../routes/categories");
+const userRoleAPI = require("../routes/userRole");
+const userAPI = require("../routes/user");
 
-// get all category
-router.get("/api/category/get-all", (req, res) => {
-    Categories.find().exec((err, category) => {
-      if (err) {
-        return res.status(400).json({
-          error: err,
-        });
-      }
-      return res.status(200).json({
-        success: true,
-        allCategory: {category},
-      });
-    });
-  });
+/////////////////////////////////// CATEGORY API ////////////////////////////////////////////
 
+router.post("/api/category/new/add", categoryAPI.addCategory); // add category
+
+router.post("/api/category/get_all", categoryAPI.getCategories); // get all category
+
+router.put("/api/category/update/:id", categoryAPI.updateCategory); // update category
+
+router.delete("/api/category/delete/:id", categoryAPI.deleteCategory); // delete category
 
 
-// add category
-router.post("/api/category/add", (req, res) => {
-  let newCategories = Categories(req.body);
 
-  newCategories.save((err) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
-    }
-    return res.status(200).json({
-      success: "Categories saved Succesfullly",
-    });
-  });
-});
+/////////////////////////////////// MEDICINE API ////////////////////////////////////////////
+
+router.post("/api/medicine/new/add", medicinesAPI.addMedicine); // add new medicine
+
+router.post("/api/medicines/get_all", medicinesAPI.getMedicines); // get all medicines
+
+router.put("/api/medicine/update/:id", medicinesAPI.updateMedicine); // update category
+
+router.delete("/api/medicine/delete/:id", medicinesAPI.deleteMedicine); // delete medicine
 
 
-  
-// delete category
-router.delete("/api/category/delete/:id", (req, res) => {
-    Categories.findByIdAndRemove(req.params.id).exec((err, deleteCategory) => {
-      if (err) {
-        return res.status(400).json({ message: "Not deleted", err });
-      }
-      return res.json({
-        message: "Delete Successfully",
-        deleteCategory,
-      });
-    });
-  });
+
+/////////////////////////////////// USER ROLE API ////////////////////////////////////////////
+
+router.post("/api/user_role/new/add", userRoleAPI.addUserRole); // add new userRole
+
+router.post("/api/user_role/get_all", userRoleAPI.getUserRole); // get all userRole
+
+router.put("/api/user_role/update/:id", userRoleAPI.updateUserRole); // update userRole
+
+router.delete("/api/user_role/delete/:id", userRoleAPI.deleteUserRole); // delete userRole
 
 
-  // update user
-  router.put("/api/category/update/:id", (req, res) => {
-    Categories.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      (err, updateCategory) => {
-        if (err) {
-          return res.status(400).json({ error: err });
-        }
-        return res.status(200).json({
-          success: "Updated Successfully",
-        });
-      }
-    );
-  });
-  
+
+/////////////////////////////////// USER API ////////////////////////////////////////////
+
+router.post("/api/user/new/add", userAPI.addUser); // add new user
+
+router.post("/api/user/get_all", userAPI.getUser); // get all user
+
+router.put("/api/user/update/:id", userAPI.updateUser); // update user
+
+router.delete("/api/user/delete/:id", userAPI.deleteUser); // delete user
 
 module.exports = router;
