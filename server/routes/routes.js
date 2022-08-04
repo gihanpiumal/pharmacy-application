@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const {getCategories} = require("./Categories");
 const Categories = require("../models/category");
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.get("/api/category/get-all", (req, res) => {
       });
     });
   });
+
 
 
 // add category
