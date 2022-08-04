@@ -5,4 +5,4 @@ const categorySchema = new mongoose.Schema({
   Description: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Users", categorySchema);
+module.exports = mongoose.model("Categories", categorySchema);
