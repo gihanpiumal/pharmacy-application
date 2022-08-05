@@ -6,6 +6,7 @@ const medicinesAPI = require("../routes/medicines");
 const categoryAPI = require("../routes/categories");
 const userRoleAPI = require("../routes/userRole");
 const userAPI = require("../routes/user");
+const storeAPI = require("../routes/store");
 
 /////////////////////////////////// CATEGORY API ////////////////////////////////////////////
 
@@ -52,5 +53,17 @@ router.post("/api/user/get_all", userAPI.getUser); // get all user
 router.put("/api/user/update/:id", userAPI.updateUser); // update user
 
 router.delete("/api/user/delete/:id", userAPI.deleteUser); // delete user
+
+
+
+/////////////////////////////////// STORE API ////////////////////////////////////////////
+
+router.post("/api/store/new/add", storeAPI.addStore); // add new store
+
+router.post("/api/store/get_all", storeAPI.getStore); // get all store
+
+router.put("/api/store/update/:id", storeAPI.updateStore); // update store
+
+router.delete("/api/store/delete/:id", storeAPI.deleteStore); // delete store
 
 module.exports = router;
