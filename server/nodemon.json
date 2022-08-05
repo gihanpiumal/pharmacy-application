@@ -1,6 +1,8 @@
 {
-    "env":{
-        "DB_USER":"gihan",
-        "DB_PASSWORD":"gihan123"
-    }
+  "env": {
+    "DB_USER": "gihan",
+    "DB_PASSWORD": "gihan123",
+    "backEndPort": 8081,
+    "dbURL": "mongodb://localhost:27017/pharmasy_system"
+  }
 }
