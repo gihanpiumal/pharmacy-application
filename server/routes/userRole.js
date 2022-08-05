@@ -43,10 +43,18 @@ exports.addUserRole = function (req, res) {
 };
 
 exports.updateUserRole = function (req, res) {
+  let request = req.body;
+
+  {
+    request.roleName == null || request.roleName === ""
+      ? delete request.roleName
+      : (request.roleName = request.roleName);
+  }
+
   UserRole.findByIdAndUpdate(
     req.params.id,
     {
-      $set: req.body,
+      $set: request,
     },
     (err, updateCategory) => {
       if (err) {

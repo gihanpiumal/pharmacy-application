@@ -84,10 +84,33 @@ exports.addUser = function (req, res) {
 };
 
 exports.updateUser = function (req, res) {
+  let request = req.body;
+
+  {
+    request.email == null || request.email === ""
+      ? delete request.email
+      : (request.email = request.email);
+  }
+  {
+    request.Address == null || request.Address === ""
+      ? delete request.Address
+      : (request.Address = request.Address);
+  }
+  {
+    request.phone == null || request.phone === ""
+      ? delete request.phone
+      : (request.phone = request.phone);
+  }
+  {
+    request.userRoleId == null || request.userRoleId === ""
+      ? delete request.userRoleId
+      : (request.userRoleId = request.userRoleId);
+  }
+
   User.findByIdAndUpdate(
     req.params.id,
     {
-      $set: req.body,
+      $set: request,
     },
     (err, updateCategory) => {
       if (err) {
