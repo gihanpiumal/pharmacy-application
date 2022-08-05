@@ -71,10 +71,38 @@ exports.addMedicine = function (req, res) {
 };
 
 exports.updateMedicine = function (req, res) {
+  let request = req.body;
+
+  {
+    request.name == null || request.name === ""
+      ? delete request.name
+      : (request.name = request.name);
+  }
+  {
+    request.description == null || request.description === ""
+      ? delete request.description
+      : (request.description = request.description);
+  }
+  {
+    request.doctrorApproval == null || request.doctrorApproval === ""
+      ? delete request.doctrorApproval
+      : (request.doctrorApproval = request.doctrorApproval);
+  }
+  {
+    request.price == null || request.price === ""
+      ? delete request.price
+      : (request.price = request.price);
+  }
+  {
+    request.quantity == null || request.quantity === ""
+      ? delete request.quantity
+      : (request.quantity = request.quantity);
+  }
+
   Medicines.findByIdAndUpdate(
     req.params.id,
     {
-      $set: req.body,
+      $set: request,
     },
     (err, updateCategory) => {
       if (err) {

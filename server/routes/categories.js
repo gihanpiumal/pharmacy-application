@@ -43,10 +43,23 @@ exports.addCategory = function (req, res) {
 };
 
 exports.updateCategory = function (req, res) {
+  let request = req.body;
+
+  {
+    request.categoryName == null || request.categoryName === ""
+      ? delete request.categoryName
+      : (request.categoryName = request.categoryName);
+  }
+  {
+    request.Description == null || request.Description === ""
+      ? delete request.Description
+      : (request.Description = request.Description);
+  }
+
   Categories.findByIdAndUpdate(
     req.params.id,
     {
-      $set: req.body,
+      $set: request,
     },
     (err, updateCategory) => {
       if (err) {
