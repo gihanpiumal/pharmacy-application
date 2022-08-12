@@ -30,7 +30,7 @@ exports.getCategories = async function (req, res) {
 exports.addCategory = function (req, res) {
   let newCategories = Categories(req.body);
 
-  newCategories.save((err) => {
+  newCategories.save((err,addedData) => {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -38,6 +38,7 @@ exports.addCategory = function (req, res) {
     }
     return res.status(200).json({
       success: "Categories saved Succesfullly",
+      addedData
     });
   });
 };
@@ -61,12 +62,14 @@ exports.updateCategory = function (req, res) {
     {
       $set: request,
     },
-    (err, updateCategory) => {
+    { new: true },
+    function (err, updateCategory) {
       if (err) {
         return res.status(400).json({ error: err });
       }
       return res.status(200).json({
         success: "Updated Successfully",
+        updateCategory,
       });
     }
   );

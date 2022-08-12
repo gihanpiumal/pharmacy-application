@@ -43,7 +43,7 @@ exports.getPurchase = async function (req, res) {
     ],
   };
 
-  let user = await Purchase.aggregate([
+  let purchase = await Purchase.aggregate([
     { $match: condition },
     {
       $lookup: {
@@ -89,10 +89,10 @@ exports.getPurchase = async function (req, res) {
     },
   ]);
 
-  if (user) {
+  if (purchase) {
     return res.status(200).json({
       success: true,
-      allUserRoles: { user },
+      allPurchase: { purchase },
     });
   }
   return res.status(400).json({
