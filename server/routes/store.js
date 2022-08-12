@@ -37,7 +37,7 @@ exports.getStore = async function (req, res) {
   if (stores) {
     return res.status(200).json({
       success: true,
-      allCategory: { stores },
+      allStors: { stores },
     });
   }
   return res.status(400).json({
