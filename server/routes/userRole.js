@@ -25,6 +25,7 @@ exports.getUserRole = async function (req, res) {
   return res.status(400).json({
     error: err,
   });
+
 };
 
 exports.addUserRole = function (req, res) {

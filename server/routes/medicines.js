@@ -26,7 +26,7 @@ exports.getMedicines = async function (req, res) {
     ],
   };
 
-  let categories = await Medicines.aggregate([
+  let Medicine = await Medicines.aggregate([
     { $match: condition },
     {
       $lookup: {
@@ -44,10 +44,10 @@ exports.getMedicines = async function (req, res) {
     },
   ]);
 
-  if (categories) {
+  if (Medicine) {
     return res.status(200).json({
       success: true,
-      allCategory: { categories },
+      allMedicines: { Medicine },
     });
   }
   return res.status(400).json({

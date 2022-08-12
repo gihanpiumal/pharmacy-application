@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const joi = require("joi")
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
@@ -43,7 +44,7 @@ exports.getUser = async function (req, res) {
   if (user) {
     return res.status(200).json({
       success: true,
-      allUserRoles: { user },
+      allUsers: { user },
     });
   }
   return res.status(400).json({
