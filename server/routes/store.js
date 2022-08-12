@@ -48,7 +48,7 @@ exports.getStore = async function (req, res) {
 exports.addStore = function (req, res) {
   let newStore = Store(req.body);
 
-  newStore.save((err) => {
+  newStore.save((err,addedData) => {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -56,6 +56,7 @@ exports.addStore = function (req, res) {
     }
     return res.status(200).json({
       success: "Medicine saved succesfullly to store",
+      addedData
     });
   });
 };
@@ -79,12 +80,13 @@ exports.updateStore = function (req, res) {
       {
         $set: request,
       },
-      (err, updateCategory) => {
+      (err, updateStore) => {
         if (err) {
           return res.status(400).json({ error: err });
         }
         return res.status(200).json({
           success: "Updated Successfully",
+          updateStore
         });
       }
     );

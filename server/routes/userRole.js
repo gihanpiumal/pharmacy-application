@@ -31,7 +31,7 @@ exports.getUserRole = async function (req, res) {
 exports.addUserRole = function (req, res) {
   let newUserRole = UserRole(req.body);
 
-  newUserRole.save((err) => {
+  newUserRole.save((err,addedData) => {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -39,6 +39,7 @@ exports.addUserRole = function (req, res) {
     }
     return res.status(200).json({
       success: "User Role saved Succesfullly",
+      addedData
     });
   });
 };
@@ -57,12 +58,13 @@ exports.updateUserRole = function (req, res) {
     {
       $set: request,
     },
-    (err, updateCategory) => {
+    (err, updateUserRoles) => {
       if (err) {
         return res.status(400).json({ error: err });
       }
       return res.status(200).json({
         success: "Updated Successfully",
+        updateUserRoles
       });
     }
   );

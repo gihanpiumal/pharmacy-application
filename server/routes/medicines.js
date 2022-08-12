@@ -58,14 +58,16 @@ exports.getMedicines = async function (req, res) {
 exports.addMedicine = function (req, res) {
   let newMedicine = Medicines(req.body);
 
-  newMedicine.save((err) => {
+  newMedicine.save((err,addedData) => {
     if (err) {
       return res.status(400).json({
         error: err,
+        
       });
     }
     return res.status(200).json({
       success: "Medicine saved Succesfullly",
+      addedData
     });
   });
 };
@@ -105,11 +107,12 @@ exports.updateMedicine = function (req, res) {
       $set: request,
     },
     (err, updateCategory) => {
-      if (err) {
+      if (err,C) {
         return res.status(400).json({ error: err });
       }
       return res.status(200).json({
         success: "Updated Successfully",
+        updateCategory
       });
     }
   );
