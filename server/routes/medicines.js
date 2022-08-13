@@ -106,13 +106,13 @@ exports.updateMedicine = function (req, res) {
     {
       $set: request,
     },
-    (err, updateCategory) => {
+    (err, updateMedicines) => {
       if (err,C) {
         return res.status(400).json({ error: err });
       }
       return res.status(200).json({
         success: "Updated Successfully",
-        updateCategory
+        updateMedicines
       });
     }
   );
