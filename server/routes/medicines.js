@@ -67,7 +67,7 @@ exports.addMedicine = function (req, res) {
     }
     return res.status(200).json({
       success: "Medicine saved Succesfullly",
-      addedData
+      allMedicines: { addedData },
     });
   });
 };
