@@ -103,7 +103,7 @@ exports.getPurchase = async function (req, res) {
 exports.addPurchase = function (req, res) {
   let newPurchase = Purchase(req.body);
 
-  newPurchase.save((err) => {
+  newPurchase.save((err,addedData) => {
     if (err) {
       return res.status(400).json({
         error: err,
@@ -111,6 +111,7 @@ exports.addPurchase = function (req, res) {
     }
     return res.status(200).json({
       success: "New Purchase saved Succesfullly",
+      addedData
     });
   });
 };
@@ -149,12 +150,13 @@ exports.updatePurchase = function (req, res) {
     {
       $set: request,
     },
-    (err, updateCategory) => {
+    (err, updatePurchaseStore) => {
       if (err) {
         return res.status(400).json({ error: err });
       }
       return res.status(200).json({
         success: "Updated Successfully",
+        updatePurchaseStore
       });
     }
   );
