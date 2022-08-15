@@ -42,6 +42,20 @@ exports.getMedicines = async function (req, res) {
         preserveNullAndEmptyArrays: true,
       },
     },
+    {
+      $lookup: {
+        from: "stores",
+        localField: "_id",
+        foreignField: "medicineId",
+        as: "price",
+      },
+    },
+    {
+      $unwind: {
+        path: "$spec",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
   ]);
 
   if (Medicine) {
@@ -58,11 +72,10 @@ exports.getMedicines = async function (req, res) {
 exports.addMedicine = function (req, res) {
   let newMedicine = Medicines(req.body);
 
-  newMedicine.save((err,addedData) => {
+  newMedicine.save((err, addedData) => {
     if (err) {
       return res.status(400).json({
         error: err,
-        
       });
     }
     return res.status(200).json({
@@ -106,13 +119,14 @@ exports.updateMedicine = function (req, res) {
     {
       $set: request,
     },
-    (err, updateMedicines) => {
-      if (err,C) {
+    { new: true },
+    function (err, updateMedicines) {
+      if (err) {
         return res.status(400).json({ error: err });
       }
       return res.status(200).json({
         success: "Updated Successfully",
-        updateMedicines
+        updateMedicines,
       });
     }
   );

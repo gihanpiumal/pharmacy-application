@@ -39,7 +39,7 @@ exports.addUserRole = function (req, res) {
     }
     return res.status(200).json({
       success: "User Role saved Succesfullly",
-      addedData
+      allUserRoles: {addedData}
     });
   });
 };
@@ -58,6 +58,7 @@ exports.updateUserRole = function (req, res) {
     {
       $set: request,
     },
+    { new: true },
     (err, updateUserRoles) => {
       if (err) {
         return res.status(400).json({ error: err });
